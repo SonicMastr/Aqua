@@ -1,0 +1,22 @@
+{
+  "name": "aqua",
+  "version": "1.0.0",
+  "description": "A Pretty Useless Bot",
+  "main": "aqua.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SonicMastr/Aqua.git"
+  },
+  "author": "SonicMastr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SonicMastr/Aqua/issues"
+  },
+  "homepage": "https://github.com/SonicMastr/Aqua#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
