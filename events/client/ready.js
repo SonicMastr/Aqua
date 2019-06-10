@@ -1,5 +1,4 @@
-﻿const chalk = require('chalk');
-module.exports = async (bot) => {
-    console.log(chalk.bold.green('Logged in'));
-    bot.user.setActivity('I don\'t want to be lonely')
+﻿module.exports = (aqua) => {
+    aqua.info(`Logged in on ${aqua.readyAt}`, true);
+    aqua.user.setActivity('Being Useless');
 }

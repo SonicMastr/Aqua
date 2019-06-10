@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/SonicMastr/Aqua#readme",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "chalk": "^2.4.2",
+    "discord.js": "github:discordjs/discord.js",
+    "node-opus": "^0.3.2"
   }
 }
