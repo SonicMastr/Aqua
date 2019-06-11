@@ -15,10 +15,12 @@ class Aqua extends Discord.Client {
         this.prefix = prefix;
         //CPU Cores
         this.cpuInfo = os.cpus().length;
+        //Other Stuff
+        this.embed = Discord;
 
         this._init();
     };
-    //Command Handler Function
+    //Command Handler
     loadCMDs() {
         const load = dir => {
             const commands = fs.readdirSync(`./commands/${dir}/`).filter(d => d.endsWith('.js'));
@@ -61,12 +63,13 @@ class Aqua extends Discord.Client {
         console.log(new Date().toLocaleTimeString(), `[${chalk.whiteBright('Info')}]:`, chalk.whiteBright(info));
     };
 
-    _init() {
+    async _init() {
         process.on('unhandledRejection', console.error);
         process.on('uncaughtException', console.error);
         this.loadEvents();
         this.loadCMDs();
-        this.login(token).catch(this.error);
+        await this.login(token).catch(this.error);
+        this.info(this.ws.shards.size);
     };
 
 };

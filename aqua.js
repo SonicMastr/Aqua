@@ -1,2 +1,2 @@
-const Aqua = require('./src/class_aqua');
-new Aqua( { shardCount: 2, totalShardCount:2 } );
+const Aqua = require('./src/aqua');
+new Aqua( { shardCount: 2, totalShardCount: 2 } );

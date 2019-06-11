@@ -6,21 +6,15 @@ module.exports = {
     },
     run: async (aqua, m) => {
         try {
-            m.channel.send({
-                'embed': {
-                    'color': 7337974,
-                    'author': {
-                        'name': 'Aqua',
-                        'icon_url': aqua.user.avatarURL,
-                    },
-                    'fields': [
-                        {
-                            'name': '**Ping**',
-                            'value': aqua.ws.ping + 'ms',
-                        },
-                    ],
-                },
-            });
+            const embed = new aqua.embed.MessageEmbed();
+		    embed.setAuthor('Shard Pings', aqua.user.avatarURL());
+		    embed.setDescription('Results');
+		    embed.setColor('3099F0');
+		    for (let i = 0; i < aqua.ws.shards.size; i++) {
+			    let ping = aqua.ws.shards.get(i).ping;
+			    embed.addField(`Shard ${i}`, '```js\n' + Math.floor(ping) + 'ms```', true);
+		    }
+		    return m.channel.send({ embed });
         }
         catch (err) {
             m.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
