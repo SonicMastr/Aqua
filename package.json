@@ -19,6 +19,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "discord.js": "github:discordjs/discord.js",
-    "node-opus": "^0.3.2"
+    "node-opus": "^0.3.2",
+    "os-utils": "github:oscmejia/os-utils"
   }
 }

@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { prefix, token, ownerID } = require('../config.json');
 const chalk = require('chalk');
 const fs = require('fs');
-const os = require('os');
+const os = require('os-utils');
 
 class Aqua extends Discord.Client {
     constructor(options) {
@@ -13,8 +13,8 @@ class Aqua extends Discord.Client {
         //config
         this.ownerID = ownerID;
         this.prefix = prefix;
-        //CPU Cores
-        this.cpuInfo = os.cpus().length;
+        //OS Resource Uses Stats
+        this.os = os;
         //Other Stuff
         this.embed = Discord;
 
@@ -35,9 +35,10 @@ class Aqua extends Discord.Client {
         }
         ['misc', 'moderation', 'owner'].forEach(a => load(a));
         this.info('All Commands Successfully loaded', true);
+        return ('Reloaded all Commands');
     };
     //Event Handler
-    loadEvents() {
+    _loadEvents() {
         const load = dir => {
             const events = fs.readdirSync(`./events/${dir}/`).filter(d => d.endsWith('.js'));
             for (let file of events) {
@@ -66,7 +67,7 @@ class Aqua extends Discord.Client {
     async _init() {
         process.on('unhandledRejection', console.error);
         process.on('uncaughtException', console.error);
-        this.loadEvents();
+        this._loadEvents();
         this.loadCMDs();
         await this.login(token).catch(this.error);
         this.info(this.ws.shards.size);

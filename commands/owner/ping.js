@@ -5,20 +5,14 @@ module.exports = {
         owner: true,
     },
     run: async (aqua, m) => {
-        try {
-            const embed = new aqua.embed.MessageEmbed();
-		    embed.setAuthor('Shard Pings', aqua.user.avatarURL());
-		    embed.setDescription('Results');
-		    embed.setColor('3099F0');
-		    for (let i = 0; i < aqua.ws.shards.size; i++) {
-			    let ping = aqua.ws.shards.get(i).ping;
-			    embed.addField(`Shard ${i}`, '```js\n' + Math.floor(ping) + 'ms```', true);
-		    }
-		    return m.channel.send({ embed });
-        }
-        catch (err) {
-            m.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
-            aqua.error(err);
-        }
+        const embed = new aqua.embed.MessageEmbed();
+		embed.setAuthor('Shard Pings', aqua.user.avatarURL());
+		embed.setDescription('Results');
+		embed.setColor('3099F0');
+		for (let i = 0; i < aqua.ws.shards.size; i++) {
+			let ping = aqua.ws.shards.get(i).ping;
+			embed.addField(`Shard ${i}`, '```js\n' + Math.floor(ping) + 'ms```', true);
+		}
+		return m.channel.send({ embed });
     },
 };
