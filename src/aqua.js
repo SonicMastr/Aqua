@@ -28,7 +28,7 @@ class Aqua extends Discord.Client {
         this.Shoukaku.on('disconnected', (name, reason) => this.warning(`Lavalink Node: ${name} disconnected.`, reason));
         this.Shoukaku.on('close', (name, code, reason) => this.warning(`Lavalink Node: ${name} closed with code ${code}. Reason: ${reason || 'No reason'}`));
         //Queue Map
-        this.active = new Map();
+        this.activeMusic = new Map();
         //webhook
         this.hook = new Discord.WebhookClient('550178643041583105', 'VnHF1yYzAvCRc7-qvflAWW60u92_oGryrUTrG5GTpHtEAkL2Fw1uTYYabCrMPrXNCsZ7');
         //Other Stuff

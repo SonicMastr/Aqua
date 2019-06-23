@@ -12,30 +12,20 @@ module.exports = {
         if (Array.isArray(resolved)) resolved = resolved[0];
         aqua.info(resolved);
         aqua.info(JSON.stringify(resolved.info));
-        const link = await node.joinVoiceChannel({ guild_id: m.guild.id, channel_id: m.member.voice.channel.id});
-        link.player.on('TrackEnd', (reason) => {
+        const link = await node.joinVoiceChannel({ guildID: m.guild.id, voiceChannelID: m.member.voice.channel.id});
+        link.player.on('end', (reason) => {
             console.log(reason);
             link.disconnect();
         });
         thumbnail = getThumbnail(resolved);
         await link.player.playTrack(resolved.track);
-        link.player.on('TrackStuck', (reason) => {
+        link.player.on('stuck', (reason) => {
             console.warn(reason);
-            link.player.stopTrack().catch(console.error);
+            link.disconnect();
         });
-        link.player.on('TrackException', console.log);
-        link.player.on('WebSocketClosed', (reason) => {console.log(reason); link.disconnect()});
-        /* 
-        Other Player Methods you can use
-        .setBands(Array of Bands)
-        .seek(time to skip to)
-        .pause() or .pause(false)
-        .volume(0-999)
-        .moveShoukakuNode(host, track, startTime in ms)
-        .stop()
-        .destroy()
-        */
-        
+        link.player.on('exception', console.log);
+        link.player.on('nodeDisconnect', (reason) => {console.log(reason); link.disconnect()});
+        link.player.on('voiceClose', (reason) => {console.log(reason); link.disconnect()});
         await m.channel.send(`Playing: ${resolved.info.title} --- ${thumbnail}`);
     },
 };
