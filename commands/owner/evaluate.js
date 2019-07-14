@@ -1,7 +1,7 @@
 module.exports = {
 	config: {
 		name: 'ev',
-		description: 'executes a command',
+		description: 'Evaluates JS',
 		owner: true,
 	},
 	run: async (aqua, m, args) => {
@@ -14,8 +14,8 @@ module.exports = {
 			let evaled = eval(code);
 			if (typeof evaled !== 'string') {evaled = require('util').inspect(evaled);}
 			const embed = new aqua.embed.MessageEmbed();
-		    embed.setAuthor('Aqua Eval', aqua.user.avatarURL());
-		    embed.setDescription('Eval');
+			embed.setAuthor('Aqua Eval', aqua.user.avatarURL());
+			embed.setDescription('Eval');
 			embed.setColor('ffb8b8');
 			embed.addField('**EVAL**', '```js\n' + clean(evaled) + '```');
 			m.channel.send(embed);
