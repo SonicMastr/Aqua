@@ -4,7 +4,7 @@ module.exports = {
         description: `Play's song with link`,
     },
     run: async (aqua, m, args) => {
-        if (aqua.Shoukaku.getLink(m.guild.id)) return;
+        if (aqua.Shoukaku.getPlayer(m.guild.id)) return;
         if (!args[0]) return;
         const node = aqua.Shoukaku.getNode();
         const resolved = await node.rest.resolve(args.join(' '));
@@ -13,19 +13,19 @@ module.exports = {
         aqua.info(resolved);
         aqua.info(JSON.stringify(resolved.info));
         const link = await node.joinVoiceChannel({ guildID: m.guild.id, voiceChannelID: m.member.voice.channel.id});
-        link.player.on('end', (reason) => {
+        link.on('end', (reason) => {
             console.log(reason);
             link.disconnect();
         });
         thumbnail = getThumbnail(resolved);
-        await link.player.playTrack(resolved.track);
-        link.player.on('stuck', (reason) => {
+        await link.playTrack(resolved.track);
+        link.on('stuck', (reason) => {
             console.warn(reason);
             link.disconnect();
         });
-        link.player.on('exception', console.log);
-        link.player.on('nodeDisconnect', (reason) => {console.log(reason); link.disconnect()});
-        link.player.on('voiceClose', (reason) => {console.log(reason); link.disconnect()});
+        link.on('exception', console.log);
+        link.on('nodeDisconnect', (reason) => {console.log(reason); link.disconnect()});
+        link.on('voiceClose', (reason) => {console.log(reason); link.disconnect()});
         await m.channel.send(`Playing: ${resolved.info.title} --- ${thumbnail}`);
     },
 };
