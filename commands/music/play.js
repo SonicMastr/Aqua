@@ -7,7 +7,7 @@ module.exports = {
         if (aqua.Shoukaku.getPlayer(m.guild.id)) return;
         if (!args[0]) return;
         const node = aqua.Shoukaku.getNode();
-        const resolved = await node.rest.resolve(args.join(' '));
+        const resolved = await node.rest.resolve(args[1]);
         if (!resolved) return;
         if (Array.isArray(resolved)) resolved = resolved[0];
         aqua.info(resolved);
@@ -18,7 +18,6 @@ module.exports = {
             link.disconnect();
         });
         thumbnail = getThumbnail(resolved);
-        await link.playTrack(resolved.track);
         link.on('stuck', (reason) => {
             console.warn(reason);
             link.disconnect();
@@ -26,6 +25,7 @@ module.exports = {
         link.on('exception', console.log);
         link.on('nodeDisconnect', (reason) => {console.log(reason); link.disconnect()});
         link.on('voiceClose', (reason) => {console.log(reason); link.disconnect()});
+        await link.playTrack(resolved.track);
         await m.channel.send(`Playing: ${resolved.info.title} --- ${thumbnail}`);
     },
 };
