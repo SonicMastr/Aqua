@@ -39,7 +39,7 @@ class Aqua extends Discord.Client {
 	// Command Handler
 	loadCMDs() {
 		const load = dir => {
-			const commands = fs.readdirSync(`../commands/${dir}/`).filter(d => d.endsWith('.js'));
+			const commands = fs.readdirSync(`./commands/${dir}/`).filter(d => d.endsWith('.js'));
 			for (let file of commands) {
 				const cache = require.resolve(`../commands/${dir}/${file}`);
 				delete require.cache[cache];

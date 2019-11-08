@@ -1,5 +1,5 @@
 ﻿module.exports = (aqua) => {
-    aqua.Shoukaku.build([{
+    aqua.Shoukaku.start([{
         name: 'My server',
         host: 'localhost',
         port: 8767,
