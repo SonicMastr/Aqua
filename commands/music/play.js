@@ -7,7 +7,7 @@ module.exports = {
         if (aqua.Shoukaku.getPlayer(m.guild.id)) return;
         if (!args[0]) return;
         const node = aqua.Shoukaku.getNode();
-        const resolved = await node.rest.resolve(args[1]);
+        const resolved = await node.rest.resolve(args.join(' '));
         if (!resolved) return;
         if (Array.isArray(resolved)) resolved = resolved[0];
         aqua.info(resolved);
